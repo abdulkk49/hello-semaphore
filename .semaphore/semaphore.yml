@@ -1,0 +1,37 @@
+version: v1.0
+name: Initial Pipeline
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+auto_cancel:
+  running:
+    when: branch != 'master'
+blocks:
+  - name: Build service 1
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - echo "building service 1"
+    dependencies: []
+  - name: Build service 2
+    dependencies: []
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - echo "Building service 2"
+promotions:
+  - name: deploy service 1 to devel
+    pipeline_file: deploy-service1.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'devel' and change_in('/service1/', '/.semaphore/deploy-service1.yml')"
+  - name: deploy service 1 to stag
+    pipeline_file: deploy-service1.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'master' and change_in('/service1/', '/.semaphore/deploy-service1.yml')"
+  - name: deploy service 2
+    pipeline_file: deploy-service2.yml
+    auto_promote:
+      when: "result = 'passed' and branch = 'master' and change_in('/', '/.semaphore/deploy-service2.yml')"

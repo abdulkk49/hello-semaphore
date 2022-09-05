@@ -1,0 +1,13 @@
+version: v1.0
+name: Deploy Pipeline 1
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu2004
+blocks:
+  - name: Build service 1
+    task:
+      jobs:
+        - name: 'Job #1'
+          commands:
+            - echo "deploying service 1"
