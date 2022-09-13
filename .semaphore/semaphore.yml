@@ -26,12 +26,12 @@ promotions:
   - name: deploy service 1 to devel
     pipeline_file: deploy-service1.yml
     auto_promote:
-      when: "result = 'passed' and branch = 'prsp-*' and change_in('/service1/', '/.semaphore/deploy-service1.yml')"
+      when: 'result = ''passed'' and branch =~ ''^prsp-'' and change_in(''/service1/'', ''/.semaphore/deploy-service1.yml'')'
   - name: deploy service 1 to stag
     pipeline_file: deploy-service1.yml
     auto_promote:
-      when: "result = 'passed' and branch = 'master' and change_in('/service1/', '/.semaphore/deploy-service1.yml')"
+      when: 'result = ''passed'' and branch = ''master'' and change_in(''/service1/'', ''/.semaphore/deploy-service1.yml'')'
   - name: deploy service 2
     pipeline_file: deploy-service2.yml
     auto_promote:
-      when: "result = 'passed' and branch = 'master' and change_in('/', '/.semaphore/deploy-service2.yml')"
+      when: 'result = ''passed'' and branch = ''master'' and change_in(''/'', ''/.semaphore/deploy-service2.yml'')'
