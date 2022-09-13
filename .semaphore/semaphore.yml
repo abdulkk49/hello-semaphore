@@ -25,8 +25,6 @@ blocks:
 promotions:
   - name: deploy service 1 to devel
     pipeline_file: deploy-service1.yml
-    auto_promote:
-      when: 'result = ''passed'' and branch =~ ''^prsp-'' and change_in(''/service1/'', ''/.semaphore/deploy-service1.yml'')'
   - name: deploy service 1 to stag
     pipeline_file: deploy-service1.yml
     auto_promote:
